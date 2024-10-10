@@ -1,10 +1,15 @@
+// src/components/InfiniteScroll.tsx
 "use client";
 import { useInfiniteQuery } from '@tanstack/react-query';
 import { fetchProducts } from '../domain/api/product'; 
 import { Product } from '../domain/types/ProductType';
-import Link from 'next/link';
+import { useCartStore } from '../Store/cartStore'; 
+import ProductCard from './ProductCard'; 
+import { motion } from 'framer-motion';
 
 export const InfiniteScroll = () => {
+  const { addToCart } = useCartStore(); 
+
   const {
     data,
     fetchNextPage,
@@ -30,28 +35,31 @@ export const InfiniteScroll = () => {
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
         {products.map((product) => (
-          <div key={product.id} className="border rounded-lg p-4 bg-white text-black">
-            <h2 className="font-bold">{product.title}</h2>
-            <p>{product.description}</p>
-            <p className="text-lg font-semibold">${product.price}</p>
-            
-            <Link href={`/products/${product.id}`}>
-              <button className="mt-4 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
-                Ver Detalhes
-              </button>
-            </Link>
-          </div>
+          <ProductCard 
+            key={product.id} 
+            product={product} 
+            onAddToCart={addToCart} 
+          />
         ))}
       </div>
 
       {hasNextPage && (
-        <button
-          onClick={() => fetchNextPage()}
-          disabled={!hasNextPage || isFetchingNextPage}
-          className="mt-4 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
-        >
-          {isFetchingNextPage ? 'Carregando mais...' : 'Carregar mais produtos'}
-        </button>
+        <div className="flex justify-center mt-4">
+          {isFetchingNextPage ? (
+            <motion.div
+              className="border-t-4 border-b-4 border-blue-600 rounded-full w-8 h-8"
+              animate={{ rotate: 360 }}
+              transition={{ repeat: Infinity, duration: 1 }}
+            />
+          ) : (
+            <button
+              onClick={() => fetchNextPage()}
+              className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+            >
+              Carregar mais produtos
+            </button>
+          )}
+        </div>
       )}
     </div>
   );

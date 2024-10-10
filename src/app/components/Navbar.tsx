@@ -1,5 +1,7 @@
+
 "use client";
 import { useState } from 'react';
+import { motion } from 'framer-motion';
 
 interface NavbarProps {
   darkMode: boolean;
@@ -7,6 +9,7 @@ interface NavbarProps {
 }
 
 export const Navbar = ({ darkMode, toggleDarkMode }: NavbarProps) => {
+  const [cartItems] = useState(0); 
   return (
     <nav className={`${darkMode ? 'bg-slate-900 text-white' : 'bg-slate-100 text-black'} p-4`}>
       <div className="container mx-auto flex justify-between items-center">
@@ -15,20 +18,37 @@ export const Navbar = ({ darkMode, toggleDarkMode }: NavbarProps) => {
           <input
             type="text"
             placeholder="Procurar..."
-            className={`${darkMode ? 'bg-slate-800 text-white' : 'bg-slate-200 text-black'}  p-2 py-2 rounded-md focus:outline-none`}
+            className={`${darkMode ? 'bg-slate-800 text-white' : 'bg-slate-200 text-black'} p-2 py-2 rounded-md focus:outline-none`}
           />
-          <button className={`${darkMode ? 'bg-slate-800 text-white' : 'bg-slate-200 text-black'}  px-4 py-2 rounded-md`}>Procurar</button>
-          <div className="flex items-center  space-x-4">
+          <button className={`${darkMode ? 'bg-slate-800 text-white' : 'bg-slate-200 text-black'} px-4 py-2 rounded-md`}>Procurar</button>
+          <div className="flex items-center space-x-4">
             <span className={`${darkMode ? 'text-white' : 'text-gray-700 hover:underline'}`}>🔔</span>
             <span className={`${darkMode ? 'text-white' : 'text-gray-700 hover:underline'}`}> ...</span>
-            <span className={`${darkMode ? 'text-white' : 'text-gray-700 hover:underline'}`}>🛒 0</span>
+            <motion.div className="relative">
+              <span className={`${darkMode ? 'text-white' : 'text-gray-700 hover:underline'}`}>
+                🛒
+              </span>
+              {cartItems > 0 && (
+                <motion.span
+                  className="absolute -top-1 -right-1 bg-red-600 text-white rounded-full px-2 text-xs"
+                  initial={{ scale: 0 }}
+                  animate={{ scale: 1 }}
+                  exit={{ scale: 0 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  {cartItems}
+                </motion.span>
+              )}
+            </motion.div>
           </div>
-          <button
+          <motion.button
             onClick={toggleDarkMode}
             className={`ml-4 ${darkMode ? 'bg-slate-50 text-black' : 'bg-slate-900 text-white'} px-4 py-2 rounded-md`}
+            whileHover={{ scale: 1.05 }} // Animação ao passar o mouse
+            whileTap={{ scale: 0.95 }} // Animação ao clicar
           >
             {darkMode ? 'Light Mode' : 'Dark Mode'}
-          </button>
+          </motion.button>
         </div>
       </div>
       <div className="container mx-auto flex justify-center space-x-6 mt-4">
