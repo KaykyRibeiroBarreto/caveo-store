@@ -5,7 +5,7 @@ export interface Rating {
     count: number;
   }
   
-  export interface Product {
+  export interface ProductType {
     id: number;
     title: string;
     price: number | null;
@@ -13,6 +13,8 @@ export interface Rating {
     category: string;
     image: string;
     rating: Rating;
+    quantity: number
+    
   }
 
   export interface NavbarProps {
@@ -24,14 +26,10 @@ export interface Rating {
 export interface LayoutProps {
   children: ReactNode; 
 }
-
-export interface CartItem extends Product {
-  quantity: number;
-}
-
 export interface CartState {
-  items: Product[];
-  addToCart: (product: Product) => void;
+  items: ProductType[];
+  addToCart: (product: ProductType) => void;
   removeFromCart: (productId: number) => void;
   clearCart: () => void;
 }
+

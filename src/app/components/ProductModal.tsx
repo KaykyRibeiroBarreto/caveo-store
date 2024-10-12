@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
-import { Product } from '../domain/types/ProductType';
+import { ProductType } from '../domain/types/ProductType';
 
-export const ProductDetailsModal = ({ product, onClose }: { product: Product, onClose: () => void }) => {
+export const ProductDetailsModal = ({ product, onClose }: { product: ProductType, onClose: () => void }) => {
   return (
     <motion.div
       initial={{ opacity: 0, scale: 0.9 }}
