@@ -1,5 +1,6 @@
 import { useCartStore } from '../domain/services/cartStore';
 import Link from 'next/link';
+import Image from 'next/image'
 
 const CartPage = () => {
   const { items } = useCartStore();
@@ -23,7 +24,7 @@ const CartPage = () => {
       <div className="w-1/2">
         {items.map((item) => (
           <div key={item.id} className="flex justify-between p-4 bg-white shadow-md rounded mb-4">
-            <img src={item.image} alt={item.title} className="w-24 h-24 object-contain" />
+            <Image src={item.image} alt={item.title} width={96} height={96} className="object-contain" />
             <div className="ml-4">
               <h3 className="font-bold text-xl">{item.title}</h3>
               <p className="text-gray-600">${item.price ?? 'N/A'}</p>

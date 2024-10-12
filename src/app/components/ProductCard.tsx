@@ -1,7 +1,6 @@
 
 "use client";
 import { ProductType } from '../domain/types/ProductType';
-import Link from 'next/link';
 import { useCartStore } from '../domain/services/cartStore';
 import { motion } from 'framer-motion';
 
@@ -16,11 +15,7 @@ export const ProductCard = ({ product }: ProductCardProps) => {
   // Pegando a função addToCart da store Zustand
   const addToCart = useCartStore(state => state.addToCart);
   const removeFromCart = useCartStore(state => state.removeFromCart);
-  // Função para adicionar produto ao carrinho
-  const onAddToCart = (product: ProductType) => {
-    addToCart(product);
-  };
-
+  
   return (
     <motion.div 
     className="border rounded-lg p-6 bg-white text-black mx-auto max-w-sm shadow-lg"
@@ -55,6 +50,7 @@ export const ProductCard = ({ product }: ProductCardProps) => {
       >
         Adicionar ao Carrinho
       </motion.button>
+
       <motion.button
         onClick={() => removeFromCart(product.id)} 
         className="w-full bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700"

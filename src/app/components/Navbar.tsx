@@ -27,7 +27,7 @@ export const Navbar = ({ darkMode, toggleDarkMode }: NavbarProps) => {
           ☰
         </button>
 
-        <div className="hidden md:flex flex-grow flex justify-center items-center space-x-2">
+        <div className={`md:flex flex-grow flex justify-center items-center space-x-2  ${isMobileMenuOpen ? 'hidden' : ''}`}>
             <input
               type="text"
               placeholder="Procurar..."
@@ -66,7 +66,7 @@ export const Navbar = ({ darkMode, toggleDarkMode }: NavbarProps) => {
           </motion.button>
         </div>
       </div>
-      <div className="container mx-auto flex justify-center space-x-6 mt-4">
+      <div className="container mx-auto flex justify-center space-x-6 mt-4 hidden md:flex">
         <a href="#" className={`${darkMode ? 'text-white hover:underline' : 'text-gray-700 hover:underline'}`}>Roupas Masculinas</a>
         <a href="#" className={`${darkMode ? 'text-white hover:underline' : 'text-gray-700 hover:underline'}`}>Joias</a>
         <a href="#" className={`${darkMode ? 'text-white hover:underline' : 'text-gray-700 hover:underline'}`}>Eletrônica</a>
